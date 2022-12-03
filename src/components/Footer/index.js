@@ -71,6 +71,14 @@ const Footer = () => {
                 aria-label="Martin Moscosa"
               >
                 mmoscosa.com
+              </MmoscosaLink>{' '}
+              &{' '}
+              <MmoscosaLink
+                href="//github.com/danielavpr"
+                target="_blank"
+                aria-label="Daniela Ramon"
+              >
+                dañi
               </MmoscosaLink>
             </WebsiteRights>
             <SocialIcons>

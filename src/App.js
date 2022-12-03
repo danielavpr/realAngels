@@ -2,21 +2,23 @@ import React from 'react'
 import './App.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Home from './pages'
-import SigninPage from './pages/signin'
+import Matchmaking from './pages/matchmaking'
 
-// import { useAuth0 } from '@auth0/auth0-react'
-// import { LoginButton } from './components/Login'
-// import { Profile } from './components/Profile'
-// import { LogoutButton } from './components/Logout'
+import { useAuth0 } from '@auth0/auth0-react'
+import Footer from './components/Footer'
 
 function App() {
-  // const { isAuthenticated } = useAuth0()
+  const { isAuthenticated } = useAuth0()
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} exact />
-        <Route path="/signin" element={<SigninPage />} exact />
+        {isAuthenticated ? (
+          <Route path="/" element={<Matchmaking />} exact />
+        ) : (
+          <Route path="/" element={<Home />} exact />
+        )}
       </Routes>
+      <Footer />
     </Router>
   )
 }

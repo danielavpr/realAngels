@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { FaBars } from 'react-icons/fa'
 import { IconContext } from 'react-icons/lib'
 import { animateScroll as scroll } from 'react-scroll'
+import { useAuth0 } from '@auth0/auth0-react'
 import {
   Nav,
   NavbarContainer,
@@ -32,6 +33,9 @@ const Navbar = ({ toggle }) => {
   const toggleHome = () => {
     scroll.scrollToTop()
   }
+
+  const { loginWithRedirect } = useAuth0()
+
   return (
     <>
       <IconContext.Provider value={{ color: '#fff' }}>
@@ -94,7 +98,9 @@ const Navbar = ({ toggle }) => {
               </NavItem>
             </NavMenu>
             <NavBtn>
-              <NavBtnLink>Sign In</NavBtnLink>
+              <NavBtnLink onClick={() => loginWithRedirect()}>
+                Sign In
+              </NavBtnLink>
             </NavBtn>
           </NavbarContainer>
         </Nav>
