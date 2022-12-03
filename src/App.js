@@ -1,27 +1,25 @@
 import React from 'react'
+import './App.css'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import Home from './pages'
+import Matchmaking from './pages/matchmaking'
 
 import { useAuth0 } from '@auth0/auth0-react'
-import { LoginButton } from './Login'
-import { Profile } from './Profile'
-import { LogoutButton } from './Logout'
-import './App.css'
+import Footer from './components/Footer'
 
 function App() {
   const { isAuthenticated } = useAuth0()
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Real Angels - {process.env.NODE_ENV}</h1>
+    <Router>
+      <Routes>
         {isAuthenticated ? (
-          <>
-            <Profile />
-            <LogoutButton />
-          </>
+          <Route path="/" element={<Matchmaking />} exact />
         ) : (
-          <LoginButton />
+          <Route path="/" element={<Home />} exact />
         )}
-      </header>
-    </div>
+      </Routes>
+      <Footer />
+    </Router>
   )
 }
 
