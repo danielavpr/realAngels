@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
-import { Row, Col } from 'antd'
 import CardButton from '../../components/Common/CardButton'
 import Navbar from '../../components/Landing/Navbar'
 import Sidebar from '../../components/Landing/Sidebar'
-import { OnboardingContainer, OnboardingStepContainer, OnboardintStepLeftSection, OnboardingStepRightSection } from './onboardingElements'
+import { OnboardingContainer, OnboardingStepContainer, OnboardintStepLeftSection, OnboardingStepRightSection, OnboardingCardContainer } from './onboardingElements'
 const Onboarding = () => {
   const [isOpen, setIsOpen] = useState(false)
 
@@ -17,11 +16,12 @@ const Onboarding = () => {
       <OnboardingContainer>
       <OnboardingStepContainer>
       <OnboardintStepLeftSection>
-        <div>
-          <h2>Are you an angel or a founder?</h2>
-        </div>
-        <CardButton title="Angel" description="Help startups" />      
-        <CardButton title="Founder" description="I'm part of a startup" />
+        <h2>Are you an angel or a founder?</h2>
+        <p>We'll connect you with other profiles based on your preferences</p>
+        <OnboardingCardContainer>
+          <CardButton title="Angel" description="I help startups" />      
+          <CardButton title="Founder" description="I'm part of a startup" />
+        </OnboardingCardContainer>
       </OnboardintStepLeftSection>
       <OnboardingStepRightSection>
         <h2>We foster the innovation in Mexico</h2>

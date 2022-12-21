@@ -13,6 +13,7 @@ export const OnboardingStepContainer = styled.div`
 
 export const OnboardintStepLeftSection = styled.div`
   width: 60%;
+  padding: 5%;
 `
 
 export const OnboardingStepRightSection = styled.div`
@@ -22,4 +23,11 @@ export const OnboardingStepRightSection = styled.div`
   flex-direction: column;
   justify-content: center;
   padding-left: 5%;
+`
+
+export const OnboardingCardContainer = styled.div`
+  padding: 10% 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 10%;
 `
