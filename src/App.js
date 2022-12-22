@@ -2,7 +2,7 @@ import React from 'react'
 import './App.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Home from './pages'
-import Onboarding from './pages/onboarding/onboarding'
+import Onboarding from './pages/onboarding'
 
 import { useAuth0 } from '@auth0/auth0-react'
 import Footer from './components/Footer'
