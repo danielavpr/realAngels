@@ -27,7 +27,7 @@ const Onboarding = () => {
       </OnboardintStepLeftSection>
       <OnboardingStepRightSection>
         <h2>We foster the innovation in Mexico</h2>
-        <p>Connect with the people that is changing the industry 🚀</p>
+        <p>Connect with the people that is changing the industry</p>
       </OnboardingStepRightSection>
       </OnboardingStepContainer>
       </OnboardingContainer>
