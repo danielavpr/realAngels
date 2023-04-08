@@ -11,7 +11,7 @@ export const OnboardingStepContainer = styled.div`
   background: white;
 `
 
-export const OnboardintStepLeftSection = styled.div`
+export const OnboardingStepLeftSection = styled.div`
   width: 60%;
   padding: 5%;
 `
