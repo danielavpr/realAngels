@@ -23,14 +23,15 @@ const Services = () => {
       <ServicesWrapper>
         <ServicesCard>
           <ServicesIcon src={Icon1} />
-          <ServicesH2>Reduce Expendes</ServicesH2>
+          <ServicesH2>Matchmaking</ServicesH2>
           <ServicesP>
-            We help reduce your fees and increase your overall revenue
+            Find the perfect match wether you are a startup or if you are
+            looking to invest
           </ServicesP>
         </ServicesCard>
         <ServicesCard>
           <ServicesIcon src={Icon2} />
-          <ServicesH2>Virtual Offices</ServicesH2>
+          <ServicesH2>Save money</ServicesH2>
           <ServicesP>
             We help reduce your fees and increase your overall revenue
           </ServicesP>
@@ -39,7 +40,8 @@ const Services = () => {
           <ServicesIcon src={Icon3} />
           <ServicesH2>Premium Benefits</ServicesH2>
           <ServicesP>
-            We help reduce your fees and increase your overall revenue
+            We help you with sorting everything for you to focus on what is
+            important
           </ServicesP>
         </ServicesCard>
       </ServicesWrapper>

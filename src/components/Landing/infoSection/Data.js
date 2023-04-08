@@ -14,7 +14,6 @@ export const homeObjOne = {
   dark: true,
   primary: true,
   darkText: false,
-  linkDestination: 'signup',
 }
 
 export const homeObjTwo = {
@@ -22,10 +21,10 @@ export const homeObjTwo = {
   lightBg: true,
   lightText: false,
   lightTextDesc: false,
-  topLine: 'Unlimited Access',
-  headline: 'Unlimited Transactions with zero fees',
+  topLine: 'Discover the next big thing',
+  headline: 'The next unicorn at your fingertips',
   description:
-    'Get access to our exluisive app that allows to sen unlimitted transactions without getting chargeds any fees.',
+    'Get exclusive insight to the new projects and startups in the ecosystem.',
   buttonLabel: 'Get started',
   imgStart: true,
   img: require('../../../images/svg-2.svg'),
@@ -33,7 +32,6 @@ export const homeObjTwo = {
   dark: false,
   primary: false,
   darkText: true,
-  linkDestination: 'home',
 }
 
 export const homeObjThree = {
@@ -41,10 +39,10 @@ export const homeObjThree = {
   lightBg: true,
   lightText: false,
   lightTextDesc: false,
-  topLine: 'Premium Bank',
-  headline: 'Unlimited Transactions with zero fees',
+  topLine: 'RealAngels',
+  headline: 'Be part of our heaven',
   description:
-    'Get access to our exluisive app that allows to sen unlimitted transactions without getting chargeds any fees.',
+    'No matter if you are looking for investment to grow your startup; or if you are an investor looking for the next big thing, realAngels is the place for you',
   buttonLabel: 'Get started',
   imgStart: false,
   img: require('../../../images/svg-3.svg'),
@@ -52,5 +50,4 @@ export const homeObjThree = {
   dark: false,
   primary: false,
   darkText: true,
-  linkDestination: '//google.com',
 }

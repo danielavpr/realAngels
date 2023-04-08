@@ -1,5 +1,7 @@
 import React from 'react'
-import { Button } from '../../Common/Button'
+import { Button } from '../../ButtonElements'
+import { useAuth0 } from '@auth0/auth0-react'
+
 import {
   InfoContainer,
   InfoWrapper,
@@ -32,6 +34,7 @@ const InfoSection = ({
   dark2,
   linkDestination,
 }) => {
+  const { loginWithRedirect } = useAuth0()
   return (
     <>
       <InfoContainer lightBg={lightBg} id={id}>
@@ -44,7 +47,6 @@ const InfoSection = ({
                 <Subtitle darkText={darkText}>{description}</Subtitle>
                 <BtnWrap>
                   <Button
-                    to={linkDestination}
                     smooth={true}
                     duration={500}
                     spy={true}
@@ -53,6 +55,7 @@ const InfoSection = ({
                     primary={primary ? 1 : 0}
                     dark={dark ? 1 : 0}
                     dark2={dark2 ? 1 : 0}
+                    onClick={() => loginWithRedirect()}
                   >
                     {buttonLabel}
                   </Button>
