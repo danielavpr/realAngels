@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from '../../ButtonElements'
+import { Button } from '../../Common/Button'
 import { useAuth0 } from '@auth0/auth0-react'
 
 import {
