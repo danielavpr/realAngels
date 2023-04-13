@@ -1,4 +1,5 @@
 import React from "react";
+import { Radio, Form, Input, Space } from "antd";
 
 const InvestorForm = () => {
   return (
