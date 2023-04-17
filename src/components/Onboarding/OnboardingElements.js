@@ -9,6 +9,10 @@ export const OnboardingStepContainer = styled.div`
 export const OnboardingStepLeftSection = styled.div`
   width: 60%;
   padding: 5%;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 export const OnboardingStepRightSection = styled.div`
@@ -18,6 +22,10 @@ export const OnboardingStepRightSection = styled.div`
   flex-direction: column;
   justify-content: center;
   padding-left: 5%;
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 
 export const OnboardingCardContainer = styled.div`
