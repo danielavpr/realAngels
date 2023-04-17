@@ -11,6 +11,8 @@ import {
   OnboardingCardContainer,
 } from "../components/Onboarding/OnboardingElements";
 import OnboardingStepWrapper from "../components/Onboarding/OnboardingStepWrapper";
+import founder from "../images/founder.svg";
+import investor from "../images/investor.svg";
 
 const Onboarding = () => {
   const navigate = useNavigate();
@@ -35,11 +37,13 @@ const Onboarding = () => {
                   title="Angel"
                   description="I help startups"
                   onClick={() => navigate("/investor-matching")}
+                  image={investor}
                 />
                 <CardButton
                   title="Founder"
                   description="I'm part of a startup"
                   onClick={() => navigate("/founder-matching")}
+                  image={founder}
                 />
               </OnboardingCardContainer>
             </OnboardingStepWrapper>

@@ -13,13 +13,18 @@ const CardButtonElement = styled.button`
     box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
     cursor: pointer;
   }
+  img {
+    width: 70%;
+    margin: 20px 0;
+  }
 `;
 
-const CardButton = ({ title, description, onClick }) => {
+const CardButton = ({ title, description, onClick, image }) => {
   return (
     <CardButtonElement onClick={onClick}>
       <h3>{title}</h3>
       <p>{description}</p>
+      <img src={image} alt={title} />
     </CardButtonElement>
   );
 };
