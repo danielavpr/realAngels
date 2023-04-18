@@ -1,14 +1,10 @@
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 import React from "react";
-import { Space, Spin } from "antd";
+import Loader from "../../components/Common/Loader";
 
 const AuthenticationGuard = ({ component }) => {
   const Component = withAuthenticationRequired(component, {
-    onRedirecting: () => (
-      <Space size="middle">
-        <Spin size="large" />
-      </Space>
-    ),
+    onRedirecting: () => <Loader />,
   });
 
   return <Component />;
