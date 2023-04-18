@@ -1,7 +1,11 @@
 import React from "react";
 import { Radio, Checkbox, Form, Input, Space } from "antd";
+import { startupStages, industries } from "../helpers/formHelpers";
+import getUrlOrigin from "../hooks/getUrlOrigin";
 
 const FounderForm = () => {
+  getUrlOrigin();
+
   return (
     <div>
       <Form
@@ -19,16 +23,18 @@ const FounderForm = () => {
             { required: true, message: "Please accept the terms of service" },
           ]}
         >
-          <p>Terms of Service</p>
-          <p>
-            By checking the box below you agree to share a success fee of 2%
-            with MIU.
-            <br />
-            The fee only applies when MIU connects you successfully with an
-            Investor (Angel or VC) and an Investment transaction between the
-            Investor and the Startup was made.
-          </p>
-          <Checkbox>I agree on sharing a success fee</Checkbox>
+          <Space direction="vertical">
+            <p>Terms of Service</p>
+            <p>
+              By checking the box below you agree to share a success fee of 2%
+              with MIU.
+              <br />
+              The fee only applies when MIU connects you successfully with an
+              Investor (Angel or VC) and an Investment transaction between the
+              Investor and the Startup was made.
+            </p>
+            <Checkbox>I agree on sharing a success fee</Checkbox>
+          </Space>
         </Form.Item>
         <p>Please answer the following questions</p>
         <Form.Item
@@ -36,8 +42,10 @@ const FounderForm = () => {
           name="name"
           rules={[{ required: true, message: "Please enter your name" }]}
         >
+          <Space>
             <p>First and last name of founder or legal representative</p>
-          <Input placeholder="John Doe" />
+            <Input placeholder="John Doe" />
+          </Space>
         </Form.Item>
 
         <Form.Item
@@ -63,8 +71,14 @@ const FounderForm = () => {
             },
           ]}
         >
-            <p>1.  Log into your LinkedIn account.   2. Click on the Me icon in the top bar.   3. Click on View profile in the menu.   4. Copy your URL from your browser’s address bar.</p>
-          <Input placeholder="www.linkedin.com/in/your-name" />
+          <Space>
+            <p>
+              1. Log into your LinkedIn account. 2. Click on the Me icon in the
+              top bar. 3. Click on View profile in the menu. 4. Copy your URL
+              from your browser’s address bar.
+            </p>
+            <Input placeholder="www.linkedin.com/in/your-name" />
+          </Space>
         </Form.Item>
 
         <Form.Item
@@ -77,8 +91,10 @@ const FounderForm = () => {
             },
           ]}
         >
+          <Space>
             <p>This is the name what you use for your business in public</p>
-          <Input />
+            <Input />
+          </Space>
         </Form.Item>
 
         <Form.Item
@@ -91,8 +107,10 @@ const FounderForm = () => {
             },
           ]}
         >
+          <Space>
             <p>This is the business name in your legal documents</p>
-          <Input />
+            <Input />
+          </Space>
         </Form.Item>
 
         <Form.Item
@@ -110,8 +128,13 @@ const FounderForm = () => {
           name="tweetPitch"
           rules={[{ required: true, message: "Please enter the tweet pitch" }]}
         >
-            <p>A tweet pitch is used to describe an overview of your startup, that is as short as possible. (less than 140 characters)</p>
-          <Input placeholder="EXAMPLE: XYZ makes it easy to find, share, and organize office documents on your company network using search and tagging." />
+          <Space>
+            <p>
+              A tweet pitch is used to describe an overview of your startup,
+              that is as short as possible. (less than 140 characters)
+            </p>
+            <Input placeholder="EXAMPLE: XYZ makes it easy to find, share, and organize office documents on your company network using search and tagging." />
+          </Space>{" "}
         </Form.Item>
 
         <Form.Item
@@ -151,7 +174,7 @@ const FounderForm = () => {
         </Form.Item>
 
         <Form.Item
-          label="In what stage is your startup at the moment (Idea, pre-seed, seed, late-seed, etc.)"
+          label="In what stage is your startup at the moment"
           name="stage"
           rules={[
             {
@@ -162,14 +185,12 @@ const FounderForm = () => {
           ]}
         >
           <Radio.Group>
-            <Space direction="vertical">
-              <Radio value={1}>Idea</Radio>
-              <Radio value={2}>Pre-Seed</Radio>
-              <Radio value={3}>Seed</Radio>
-              <Radio value={4}>Late-Seed</Radio>
-              <Radio value={5}>Series A</Radio>
-              <Radio value={6}>Series B</Radio>
-              <Radio value={7}>Series C+</Radio>
+            <Space>
+              {startupStages.map((stage, index) => (
+                <Radio key={`startup-stage-${index}`} value={stage}>
+                  {stage}
+                </Radio>
+              ))}
             </Space>
           </Radio.Group>
         </Form.Item>
@@ -184,8 +205,15 @@ const FounderForm = () => {
             },
           ]}
         >
-            {/* TODO: change for select */}
-          <Input placeholder="Fintech, Proptech, Edtech, Agrotech, Healthtech, Biotech, Web3, Bigdata, ..." />
+          <Radio.Group>
+            <Space direction="vertical">
+              {industries.map((industry, index) => (
+                <Radio key={`startup-industry-${index}`} value={industry}>
+                  {industry}
+                </Radio>
+              ))}
+            </Space>
+          </Radio.Group>
         </Form.Item>
 
         <Form.Item
@@ -212,13 +240,15 @@ const FounderForm = () => {
             },
           ]}
         >
-          <p>
-            If "Yes", please describe your or your co-founders former startup
-            briefly.
-            <br />
-            If "No" type NO in the text field.
-          </p>
-          <Input />
+          <Space>
+            <p>
+              If "Yes", please describe your or your co-founders former startup
+              briefly.
+              <br />
+              If "No" type NO in the text field.
+            </p>
+            <Input />
+          </Space>
         </Form.Item>
 
         <Form.Item
@@ -244,11 +274,13 @@ const FounderForm = () => {
             },
           ]}
         >
-          <p>
-            Please describe the round volume, kind of investor, investment
-            instrument, and post-money valuation.
-          </p>
-          <Input />
+          <Space>
+            <p>
+              Please describe the round volume, kind of investor, investment
+              instrument, and post-money valuation.
+            </p>
+            <Input />
+          </Space>
         </Form.Item>
 
         <Form.Item
@@ -261,11 +293,13 @@ const FounderForm = () => {
             },
           ]}
         >
-          <p>
-            The current ask in USD, valuation, instrument, and did a investor
-            already compromise to invest?
-          </p>
-          <Input />
+          <Space>
+            <p>
+              The current ask in USD, valuation, instrument, and did a investor
+              already compromise to invest?
+            </p>
+            <Input />
+          </Space>
         </Form.Item>
 
         <Form.Item
@@ -278,12 +312,14 @@ const FounderForm = () => {
             },
           ]}
         >
-          <p>
-            If "YES" please let us know with whom.
-            <br />
-            If "NO" please enter "NO" in the text field below.
-          </p>
-          <Input />
+          <Space>
+            <p>
+              If "YES" please let us know with whom.
+              <br />
+              If "NO" please enter "NO" in the text field below.
+            </p>
+            <Input />
+          </Space>
         </Form.Item>
 
         <Form.Item
@@ -296,17 +332,19 @@ const FounderForm = () => {
             },
           ]}
         >
-          <p>
-            Please make sure to activate the option that everyone with the link
-            can see the file.
-            <br />
-            IF YOU DON'T HAVE A LINK YOU CAN SEND YOUR DECK TO
-            marcelo@miu.institute.
-            <br />
-            In this case please just type "sent by email" in the text field
-            below.
-          </p>
-          <Input />
+          <Space>
+            <p>
+              Please make sure to activate the option that everyone with the
+              link can see the file.
+              <br />
+              IF YOU DON'T HAVE A LINK YOU CAN SEND YOUR DECK TO
+              marcelo@miu.institute.
+              <br />
+              In this case please just type "sent by email" in the text field
+              below.
+            </p>
+            <Input />
+          </Space>
         </Form.Item>
 
         <Form.Item
@@ -319,17 +357,19 @@ const FounderForm = () => {
             },
           ]}
         >
-          <p>
-            Please make sure to activate the option that everyone with the link
-            can see the file.
-            <br />
-            IF YOU DON'T HAVE A LINK YOU CAN SEND YOUR DECK TO
-            marcelo@miu.institute.
-            <br />
-            In this case please just type "sent by email" in the text field
-            below.
-          </p>
-          <Checkbox>I agree</Checkbox>
+          <Space>
+            <p>
+              Please make sure to activate the option that everyone with the
+              link can see the file.
+              <br />
+              IF YOU DON'T HAVE A LINK YOU CAN SEND YOUR DECK TO
+              marcelo@miu.institute.
+              <br />
+              In this case please just type "sent by email" in the text field
+              below.
+            </p>
+            <Checkbox>I agree</Checkbox>
+          </Space>
         </Form.Item>
       </Form>
     </div>

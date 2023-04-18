@@ -19,12 +19,12 @@ const Onboarding = () => {
       <OnboardingStepContainer>
         <OnboardingStepLeftSection>
           <OnboardingStepWrapper
-            title="Are you an angel or a founder?"
+            title="Are you an investor or a founder?"
             description="We'll connect you with other profiles based on your preferences"
           >
             <OnboardingCardContainer>
               <CardButton
-                title="Angel"
+                title="Investor"
                 description="I help startups"
                 onClick={() => navigate("/investor-matching")}
                 image={investor}

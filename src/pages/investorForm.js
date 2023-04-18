@@ -1,7 +1,10 @@
 import React from "react";
 import { Radio, Form, Input, Space } from "antd";
+import getUrlOrigin from "../hooks/getUrlOrigin";
 
 const InvestorForm = () => {
+  getUrlOrigin();
+
   return (
     <div>
       <Form
