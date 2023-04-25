@@ -1,6 +1,16 @@
 import React from "react";
-import { Radio, Form, Input, Space } from "antd";
 import getUrlOrigin from "../hooks/getUrlOrigin";
+import { Radio, Form, Input, Select, Space } from "antd";
+import {
+  businessModel,
+  businessModelType,
+  industries,
+  investmentTicket,
+  investmentVehicle,
+  operationTime,
+  regions,
+  startupStages,
+} from "../helpers/formHelpers";
 
 const InvestorForm = () => {
   getUrlOrigin();
@@ -9,12 +19,11 @@ const InvestorForm = () => {
     <div>
       <Form
         name="investorForm"
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
-        // style={{ maxWidth: 600 }}
+        layout="vertical"
+        style={{ padding: "5% 10%" }}
+        labelWrap
         // onFinish={onFinish}
         // onFinishFailed={onFinishFailed}
-        autoComplete="off"
       >
         <Form.Item
           label="Contact full name"
@@ -43,8 +52,25 @@ const InvestorForm = () => {
         </Form.Item>
 
         <Form.Item
+          label="Do you invest as individual or as a company/fund?"
+          name="investorType"
+          rules={[
+            {
+              required: true,
+              message: "Please select the option that better describes you",
+            },
+          ]}
+        >
+          <Radio.Group>
+            <Radio value="Individual">Individual</Radio>
+            <Radio value="Company/Fund">Company/Fund</Radio>
+          </Radio.Group>
+        </Form.Item>
+
+        <Form.Item
           label="Fund name"
-          name="fundName"
+          extra="If you are an Angel Investor just put your name"
+          name="name"
           rules={[
             {
               required: true,
@@ -52,7 +78,6 @@ const InvestorForm = () => {
             },
           ]}
         >
-          <p>If you are an Angel Investor just put your name</p>
           <Input />
         </Form.Item>
 
@@ -70,21 +95,8 @@ const InvestorForm = () => {
         </Form.Item>
 
         <Form.Item
-          label="Industries that you or your fund are interested in"
-          name="industries"
-          rules={[
-            {
-              required: true,
-              message: "Please enter the industries you're interested in",
-            },
-          ]}
-        >
-          {/* TODO: change for select  */}
-          <Input placeholder="Fintech, Proptech, Edtech, Agrotech, Healthtech, Biotech, Web3, Bigdata, ..." />
-        </Form.Item>
-
-        <Form.Item
           label="What stage(s) do you prefer to invest in?"
+          extra="Select 'Agnostic' if you don't have any preference about the Startup stage"
           name="stages"
           rules={[
             {
@@ -93,51 +105,169 @@ const InvestorForm = () => {
             },
           ]}
         >
-          {/* TODO: change by check and add list to helper */}
+          <Select mode="multiple" allowClear>
+            {["Agnostic", ...startupStages].map((stage, index) => (
+              <Select.Option key={`stage-${index}`} value={stage}>{stage}</Select.Option>
+            ))}
+          </Select>
+        </Form.Item>
+
+        <Form.Item
+          label="In which industries are you interested in?"
+          name="industries"
+          extra="Select 'Agnostic' if you don't have any preference about industry"
+          rules={[
+            {
+              required: true,
+              message: "Please enter the industries you're interested in",
+            },
+          ]}
+        >
+          <Select mode="multiple" allowClear>
+            {["Agnostic", ...industries].map((industry, index) => (
+              <Select.Option key={`industry-${index}`} value={industry}>{industry}</Select.Option>
+            ))}
+          </Select>
+        </Form.Item>
+
+        <Form.Item
+          label="In which business model(s) are you interested to invest in?"
+          extra="Select 'Agnostic' if you don't have any preference about business model"
+          name="businessModels"
+          rules={[
+            {
+              required: true,
+              message: "Please select the business models you're interested in",
+            },
+          ]}
+        >
+          <Select mode="multiple" allowClear>
+            {['Agnostic', ...businessModel].map((model, index) => (
+              <Select.Option key={`model-${index}`} value={model}>{model}</Select.Option>
+            ))}
+          </Select>
+        </Form.Item>
+
+        <Form.Item
+          label="In which model type(s) are you interested to invest in?"
+          extra="Select one or more"
+          name="businessModelTypes"
+          rules={[
+            {
+              required: true,
+              message: "Please select the model types you're interested in",
+            },
+          ]}
+        >
+          <Select mode="multiple" allowClear>
+            {businessModelType.map((type, index) => (
+              <Select.Option key={`type-${index}`} value={type}>{type}</Select.Option>
+            ))}
+          </Select>
+        </Form.Item>
+
+        <Form.Item
+          label="Average ticket that you have invested or want to invest per startup"
+          name="averageTicket"
+          rules={[
+            {
+              required: true,
+              message: "Please select the average ticket you want to invest",
+            },
+          ]}
+        >
           <Radio.Group>
             <Space direction="vertical">
-              <Radio value={1}>Idea</Radio>
-              <Radio value={2}>Pre-Seed</Radio>
-              <Radio value={3}>Seed</Radio>
-              <Radio value={4}>Late-Seed</Radio>
-              <Radio value={5}>Series A</Radio>
-              <Radio value={6}>Series B</Radio>
-              <Radio value={7}>Series C+</Radio>
+              {investmentTicket.map((ticket, index) => (
+                <Radio key={`ticket-${index}`} value={ticket}>{ticket}</Radio>
+              ))}
             </Space>
           </Radio.Group>
         </Form.Item>
 
         <Form.Item
-          label="Minimum investment ticket size (in USD)"
-          name="minimumInvestment"
+          label="What is the investment vehicle you use for your investments?"
+          name="investmentVehicle"
           rules={[
             {
               required: true,
-              message: "Please enter your minimum investment ticket size",
+              message: "Please select the investment vehicle",
             },
           ]}
         >
-          <Input placeholder="USD" />
+          <Radio.Group>
+              {investmentVehicle.map((vehicle, index) => (
+                <Radio key={`vehicle-${index}`}value={vehicle}>{vehicle}</Radio>
+              ))}
+          </Radio.Group>
         </Form.Item>
 
         <Form.Item
-          label="Maximum investment ticket size (in USD)"
-          name="maximumInvestment"
+          label="In which regions must the startup have an operation to consider it for investment?"
+          name="regions"
           rules={[
             {
               required: true,
-              message: "Please enter your maximum investment ticket size",
+              message: "Please select the regions you're interested in",
             },
           ]}
         >
-          <Input placeholder="USD" />
+          <Select mode="multiple" allowClear>
+            {regions.map((region, index) => (
+              <Select.Option key={`region-${index}`} value={region}>{region}</Select.Option>
+            ))}
+          </Select>
         </Form.Item>
 
         <Form.Item
-          label="Other important requirements you consider to invest"
-          name="notes"
+          label="Do you invest in the MVP stage?"
+          name="mvpInvestment"
+          rules={[
+            {
+              required: true,
+              message: "Please select the option that better describes you",
+            },
+          ]}
         >
-          <Input placeholder="notes" />
+          <Radio.Group>
+              <Radio value={true}>Yes</Radio>
+              <Radio value={false}>No</Radio>
+          </Radio.Group>
+        </Form.Item>
+
+        <Form.Item
+          label="Minimum operating time that the startup needs to have in order to be considered for investment?"
+          name="operatingTime"
+          rules={[
+            {
+              required: true,
+              message: "Please select the operating time you consider for investment",
+            },
+          ]}
+        >
+          <Radio.Group>
+            <Space direction="vertical">
+              {operationTime.map((time, index) => (
+                <Radio key={`time-${index}`} value={time}>{time}</Radio>
+              ))}
+            </Space>
+          </Radio.Group>
+        </Form.Item>
+
+        <Form.Item
+          label="Does the startup need to have sales?"
+          name="salesInvestment"
+          rules={[
+            {
+              required: true,
+              message: "Please select the option that better describes you",
+            },
+          ]}
+        >
+          <Radio.Group>
+              <Radio value={true}>Yes</Radio>
+              <Radio value={false}>No</Radio>
+          </Radio.Group>
         </Form.Item>
       </Form>
     </div>
