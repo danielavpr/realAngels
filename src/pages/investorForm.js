@@ -25,6 +25,9 @@ const InvestorForm = () => {
         // onFinish={onFinish}
         // onFinishFailed={onFinishFailed}
       >
+        <h2 style={{ marginBottom: "24px" }}>
+          Please answer the following questions
+        </h2>
         <Form.Item
           label="Contact full name"
           name="contactName"
@@ -107,7 +110,9 @@ const InvestorForm = () => {
         >
           <Select mode="multiple" allowClear>
             {["Agnostic", ...startupStages].map((stage, index) => (
-              <Select.Option key={`stage-${index}`} value={stage}>{stage}</Select.Option>
+              <Select.Option key={`stage-${index}`} value={stage}>
+                {stage}
+              </Select.Option>
             ))}
           </Select>
         </Form.Item>
@@ -125,7 +130,9 @@ const InvestorForm = () => {
         >
           <Select mode="multiple" allowClear>
             {["Agnostic", ...industries].map((industry, index) => (
-              <Select.Option key={`industry-${index}`} value={industry}>{industry}</Select.Option>
+              <Select.Option key={`industry-${index}`} value={industry}>
+                {industry}
+              </Select.Option>
             ))}
           </Select>
         </Form.Item>
@@ -142,8 +149,10 @@ const InvestorForm = () => {
           ]}
         >
           <Select mode="multiple" allowClear>
-            {['Agnostic', ...businessModel].map((model, index) => (
-              <Select.Option key={`model-${index}`} value={model}>{model}</Select.Option>
+            {["Agnostic", ...businessModel].map((model, index) => (
+              <Select.Option key={`model-${index}`} value={model}>
+                {model}
+              </Select.Option>
             ))}
           </Select>
         </Form.Item>
@@ -161,14 +170,16 @@ const InvestorForm = () => {
         >
           <Select mode="multiple" allowClear>
             {businessModelType.map((type, index) => (
-              <Select.Option key={`type-${index}`} value={type}>{type}</Select.Option>
+              <Select.Option key={`type-${index}`} value={type}>
+                {type}
+              </Select.Option>
             ))}
           </Select>
         </Form.Item>
 
         <Form.Item
           label="Average ticket that you have invested or want to invest per startup"
-          name="averageTicket"
+          name="investmentAmount"
           rules={[
             {
               required: true,
@@ -179,7 +190,9 @@ const InvestorForm = () => {
           <Radio.Group>
             <Space direction="vertical">
               {investmentTicket.map((ticket, index) => (
-                <Radio key={`ticket-${index}`} value={ticket}>{ticket}</Radio>
+                <Radio key={`ticket-${index}`} value={ticket}>
+                  {ticket}
+                </Radio>
               ))}
             </Space>
           </Radio.Group>
@@ -196,9 +209,11 @@ const InvestorForm = () => {
           ]}
         >
           <Radio.Group>
-              {investmentVehicle.map((vehicle, index) => (
-                <Radio key={`vehicle-${index}`}value={vehicle}>{vehicle}</Radio>
-              ))}
+            {investmentVehicle.map((vehicle, index) => (
+              <Radio key={`vehicle-${index}`} value={vehicle}>
+                {vehicle}
+              </Radio>
+            ))}
           </Radio.Group>
         </Form.Item>
 
@@ -214,7 +229,9 @@ const InvestorForm = () => {
         >
           <Select mode="multiple" allowClear>
             {regions.map((region, index) => (
-              <Select.Option key={`region-${index}`} value={region}>{region}</Select.Option>
+              <Select.Option key={`region-${index}`} value={region}>
+                {region}
+              </Select.Option>
             ))}
           </Select>
         </Form.Item>
@@ -230,8 +247,8 @@ const InvestorForm = () => {
           ]}
         >
           <Radio.Group>
-              <Radio value={true}>Yes</Radio>
-              <Radio value={false}>No</Radio>
+            <Radio value={true}>Yes</Radio>
+            <Radio value={false}>No</Radio>
           </Radio.Group>
         </Form.Item>
 
@@ -241,14 +258,17 @@ const InvestorForm = () => {
           rules={[
             {
               required: true,
-              message: "Please select the operating time you consider for investment",
+              message:
+                "Please select the operating time you consider for investment",
             },
           ]}
         >
           <Radio.Group>
             <Space direction="vertical">
               {operationTime.map((time, index) => (
-                <Radio key={`time-${index}`} value={time}>{time}</Radio>
+                <Radio key={`time-${index}`} value={time}>
+                  {time}
+                </Radio>
               ))}
             </Space>
           </Radio.Group>
@@ -265,8 +285,8 @@ const InvestorForm = () => {
           ]}
         >
           <Radio.Group>
-              <Radio value={true}>Yes</Radio>
-              <Radio value={false}>No</Radio>
+            <Radio value={true}>Yes</Radio>
+            <Radio value={false}>No</Radio>
           </Radio.Group>
         </Form.Item>
       </Form>

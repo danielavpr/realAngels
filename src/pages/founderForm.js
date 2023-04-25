@@ -1,6 +1,15 @@
 import React from "react";
-import { Radio, Checkbox, Form, Input, Space } from "antd";
-import { startupStages, industries } from "../helpers/formHelpers";
+import { Radio, Checkbox, Form, Input, Space, Select } from "antd";
+import {
+  startupStages,
+  industries,
+  usCorp,
+  businessModel,
+  businessModelType,
+  investmentTicket,
+  investmentVehicle,
+  regions,
+} from "../helpers/formHelpers";
 import getUrlOrigin from "../hooks/getUrlOrigin";
 
 const FounderForm = () => {
@@ -9,43 +18,42 @@ const FounderForm = () => {
   return (
     <div>
       <Form
-        name="founderForm"
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
-        // style={{ maxWidth: 600 }}
+        name="investorForm"
+        layout="vertical"
+        style={{ padding: "5% 10%" }}
+        labelWrap
         // onFinish={onFinish}
         // onFinishFailed={onFinishFailed}
-        autoComplete="off"
       >
+        <h2>Terms of Service</h2>
+        <p>
+          By checking the box below you agree to share a success fee of 2% with
+          MIU.
+          <br />
+          The fee only applies when MIU connects you successfully with an
+          Investor (Angel or VC) and an Investment transaction between the
+          Investor and the Startup was made.
+        </p>
         <Form.Item
           name="termsOfService"
           rules={[
             { required: true, message: "Please accept the terms of service" },
           ]}
         >
-          <Space direction="vertical">
-            <p>Terms of Service</p>
-            <p>
-              By checking the box below you agree to share a success fee of 2%
-              with MIU.
-              <br />
-              The fee only applies when MIU connects you successfully with an
-              Investor (Angel or VC) and an Investment transaction between the
-              Investor and the Startup was made.
-            </p>
-            <Checkbox>I agree on sharing a success fee</Checkbox>
-          </Space>
+          <Checkbox>I agree on sharing a success fee</Checkbox>
         </Form.Item>
-        <p>Please answer the following questions</p>
+
+        <h2 style={{ margin: "12px 0 24px 0" }}>
+          Please answer the following questions
+        </h2>
+
         <Form.Item
           label="Name"
+          extra="First and last name of founder or legal representative"
           name="name"
           rules={[{ required: true, message: "Please enter your name" }]}
         >
-          <Space>
-            <p>First and last name of founder or legal representative</p>
-            <Input placeholder="John Doe" />
-          </Space>
+          <Input placeholder="John Doe" />
         </Form.Item>
 
         <Form.Item
@@ -63,26 +71,25 @@ const FounderForm = () => {
 
         <Form.Item
           label="LinkedIn Profile"
-          name="linkedin"
-          rules={[
-            {
-              required: true,
-              message: "Please enter your LinkedIn profile",
-            },
-          ]}
-        >
-          <Space>
+          extra={
             <p>
-              1. Log into your LinkedIn account. 2. Click on the Me icon in the
-              top bar. 3. Click on View profile in the menu. 4. Copy your URL
-              from your browser’s address bar.
+              1. Log into your LinkedIn account.
+              <br />
+              2. Click on the Me icon in the top bar.
+              <br />
+              3. Click on View profile in the menu.
+              <br />
+              4. Copy your URL from your browser’s address bar.
             </p>
-            <Input placeholder="www.linkedin.com/in/your-name" />
-          </Space>
+          }
+          name="linkedin"
+        >
+          <Input placeholder="www.linkedin.com/in/your-name" />
         </Form.Item>
 
         <Form.Item
           label="Startup public name"
+          extra="This is the name what you use for your business in public"
           name="publicName"
           rules={[
             {
@@ -91,26 +98,15 @@ const FounderForm = () => {
             },
           ]}
         >
-          <Space>
-            <p>This is the name what you use for your business in public</p>
-            <Input />
-          </Space>
+          <Input />
         </Form.Item>
 
         <Form.Item
           label="Startup legal name"
+          extra="This is the business name in your legal documents"
           name="legalName"
-          rules={[
-            {
-              required: true,
-              message: "Please enter your Startup legal name",
-            },
-          ]}
         >
-          <Space>
-            <p>This is the business name in your legal documents</p>
-            <Input />
-          </Space>
+          <Input />
         </Form.Item>
 
         <Form.Item
@@ -125,16 +121,11 @@ const FounderForm = () => {
 
         <Form.Item
           label="Tweet Pitch"
+          extra="A tweet pitch is used to describe an overview of your startup, that is as short as possible. (less than 140 characters)"
           name="tweetPitch"
           rules={[{ required: true, message: "Please enter the tweet pitch" }]}
         >
-          <Space>
-            <p>
-              A tweet pitch is used to describe an overview of your startup,
-              that is as short as possible. (less than 140 characters)
-            </p>
-            <Input placeholder="EXAMPLE: XYZ makes it easy to find, share, and organize office documents on your company network using search and tagging." />
-          </Space>{" "}
+          <Input placeholder="EXAMPLE: XYZ makes it easy to find, share, and organize office documents on your company network using search and tagging." />
         </Form.Item>
 
         <Form.Item
@@ -151,7 +142,7 @@ const FounderForm = () => {
         </Form.Item>
 
         <Form.Item
-          label="Do you have an LLC, C-Corp in the United States of America?"
+          label="Do you have an LLC or C-Corp in the United States of America?"
           name="corporation"
           rules={[
             {
@@ -163,18 +154,17 @@ const FounderForm = () => {
         >
           <Radio.Group>
             <Space direction="vertical">
-              <Radio value={1}>Yes</Radio>
-              <Radio value={2}>No</Radio>
-              <Radio value={3}>In Progress</Radio>
-              <Radio value={4}>
-                I need support to create an LLC, C-Corp, etc.
-              </Radio>
+              {usCorp.map((corp, index) => (
+                <Radio key={`us-corp-${index}`} value={corp}>
+                  {corp}
+                </Radio>
+              ))}
             </Space>
           </Radio.Group>
         </Form.Item>
 
         <Form.Item
-          label="In what stage is your startup at the moment"
+          label="In what stage is your startup at the moment?"
           name="stage"
           rules={[
             {
@@ -205,11 +195,68 @@ const FounderForm = () => {
             },
           ]}
         >
+          <Select>
+            {industries.map((industry, index) => (
+              <Select.Option key={`industry-${index}`} value={industry}>
+                {industry}
+              </Select.Option>
+            ))}
+          </Select>
+        </Form.Item>
+
+        <Form.Item
+          label="What is your startup’s business model?"
+          name="businessModel"
+          rules={[
+            {
+              required: true,
+              message: "Please select your startup's business model",
+            },
+          ]}
+        >
+          <Select>
+            {businessModel.map((model, index) => (
+              <Select.Option key={`model-${index}`} value={model}>
+                {model}
+              </Select.Option>
+            ))}
+          </Select>
+        </Form.Item>
+
+        <Form.Item
+          label="What s your startup’s type of business model?"
+          name="businessModelType"
+          rules={[
+            {
+              required: true,
+              message: "Please select your startup's business model type",
+            },
+          ]}
+        >
+          <Select>
+            {businessModelType.map((type, index) => (
+              <Select.Option key={`type-${index}`} value={type}>
+                {type}
+              </Select.Option>
+            ))}
+          </Select>
+        </Form.Item>
+
+        <Form.Item
+          label="What is the amount you are currently raising?"
+          name="raisingAmount"
+          rules={[
+            {
+              required: true,
+              message: "Please select the investment you're looking for",
+            },
+          ]}
+        >
           <Radio.Group>
             <Space direction="vertical">
-              {industries.map((industry, index) => (
-                <Radio key={`startup-industry-${index}`} value={industry}>
-                  {industry}
+              {investmentTicket.map((ticket, index) => (
+                <Radio key={`ticket-${index}`} value={ticket}>
+                  {ticket}
                 </Radio>
               ))}
             </Space>
@@ -217,7 +264,46 @@ const FounderForm = () => {
         </Form.Item>
 
         <Form.Item
+          label="What is the investment vehicle you are using?"
+          name="investmentVehicle"
+          rules={[
+            {
+              required: true,
+              message: "Please select the investment vehicle",
+            },
+          ]}
+        >
+          <Radio.Group>
+            {investmentVehicle.map((vehicle, index) => (
+              <Radio key={`vehicle-${index}`} value={vehicle}>
+                {vehicle}
+              </Radio>
+            ))}
+          </Radio.Group>
+        </Form.Item>
+
+        <Form.Item
+          label="In what region(s) do you operate?"
+          name="regions"
+          rules={[
+            {
+              required: true,
+              message: "Please select the regions where you operate",
+            },
+          ]}
+        >
+          <Select mode="multiple" allowClear>
+            {regions.map((region, index) => (
+              <Select.Option key={`region-${index}`} value={region}>
+                {region}
+              </Select.Option>
+            ))}
+          </Select>
+        </Form.Item>
+
+        <Form.Item
           label="How many founders does your startup have?"
+          extra="Please add the number of founders"
           name="founders"
           rules={[
             {
@@ -231,6 +317,8 @@ const FounderForm = () => {
 
         <Form.Item
           label="Did you or any of co-founders create a startup before?"
+          extra="If YES, please describe your or your co-founders former startup
+          briefly. If NO type 'NO' in the text field."
           name="previousStartup"
           rules={[
             {
@@ -240,15 +328,7 @@ const FounderForm = () => {
             },
           ]}
         >
-          <Space>
-            <p>
-              If "Yes", please describe your or your co-founders former startup
-              briefly.
-              <br />
-              If "No" type NO in the text field.
-            </p>
-            <Input />
-          </Space>
+          <Input />
         </Form.Item>
 
         <Form.Item
@@ -266,6 +346,7 @@ const FounderForm = () => {
 
         <Form.Item
           label="Did you raise money before?"
+          extra="Please describe the round volume, kind of investor, investment instrument, and post-money valuation."
           name="previousRaises"
           rules={[
             {
@@ -274,36 +355,12 @@ const FounderForm = () => {
             },
           ]}
         >
-          <Space>
-            <p>
-              Please describe the round volume, kind of investor, investment
-              instrument, and post-money valuation.
-            </p>
-            <Input />
-          </Space>
-        </Form.Item>
-
-        <Form.Item
-          label="Please describe your current round"
-          name="currentRound"
-          rules={[
-            {
-              required: true,
-              message: "Please enter information about your current round",
-            },
-          ]}
-        >
-          <Space>
-            <p>
-              The current ask in USD, valuation, instrument, and did a investor
-              already compromise to invest?
-            </p>
-            <Input />
-          </Space>
+          <Input />
         </Form.Item>
 
         <Form.Item
           label="Did you already contact potential investors? (VC's, Angels, Family Offices, etc.)"
+          extra="If YES please let us know with whom. If NO please enter 'NO' in the text field below."
           name="potentialInvestors"
           rules={[
             {
@@ -312,18 +369,65 @@ const FounderForm = () => {
             },
           ]}
         >
-          <Space>
-            <p>
-              If "YES" please let us know with whom.
-              <br />
-              If "NO" please enter "NO" in the text field below.
-            </p>
-            <Input />
-          </Space>
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="What is your post-money valuation?"
+          extra="In USD"
+          name="postMoneyValuation"
+          rules={[
+            {
+              required: true,
+              message: "Please enter your post-money valuation",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="What is the minimum ticket you accept for investment?"
+          extra="In USD"
+          name="minimumTicket"
+          rules={[
+            {
+              required: true,
+              message: "Please enter your minimum ticket",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="How much money do you have compromised in your current round?"
+          extra="In USD"
+          name="moneyCompromised"
+          rules={[
+            {
+              required: true,
+              message: "Please enter your minimum ticket",
+            },
+          ]}
+        >
+          <Input />
         </Form.Item>
 
         <Form.Item
           label="Please add the link to your pitch deck below. "
+          extra={
+            <p>
+              Please make sure to activate the option that everyone with the
+              link can see the file.
+              <br />
+              IF YOU DON'T HAVE A LINK YOU CAN SEND YOUR DECK TO
+              marcelo@miu.institute.
+              <br />
+              In this case please just type "sent by email" in the text field
+              below.
+            </p>
+          }
           name="pitchDeck"
           rules={[
             {
@@ -332,23 +436,11 @@ const FounderForm = () => {
             },
           ]}
         >
-          <Space>
-            <p>
-              Please make sure to activate the option that everyone with the
-              link can see the file.
-              <br />
-              IF YOU DON'T HAVE A LINK YOU CAN SEND YOUR DECK TO
-              marcelo@miu.institute.
-              <br />
-              In this case please just type "sent by email" in the text field
-              below.
-            </p>
-            <Input />
-          </Space>
+          <Input />
         </Form.Item>
 
         <Form.Item
-          label="I agree on MIU sharing this information with VCs and Angel Investors.?"
+          label="I agree on MIU sharing this information with VCs and Angel Investors?"
           name="shareInformation"
           rules={[
             {
@@ -357,19 +449,7 @@ const FounderForm = () => {
             },
           ]}
         >
-          <Space>
-            <p>
-              Please make sure to activate the option that everyone with the
-              link can see the file.
-              <br />
-              IF YOU DON'T HAVE A LINK YOU CAN SEND YOUR DECK TO
-              marcelo@miu.institute.
-              <br />
-              In this case please just type "sent by email" in the text field
-              below.
-            </p>
-            <Checkbox>I agree</Checkbox>
-          </Space>
+          <Checkbox>I agree</Checkbox>
         </Form.Item>
       </Form>
     </div>

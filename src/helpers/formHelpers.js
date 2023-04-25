@@ -83,3 +83,10 @@ export const operationTime = [
   "Between 1 and 2 years",
   "More than 2 years",
 ];
+
+export const usCorp = [
+  "Yes",
+  "No",
+  "In Progress",
+  "I need support to create an LLC, C-Corp, etc."
+];
