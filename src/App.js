@@ -1,26 +1,48 @@
-import React from 'react'
-import './App.css'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Home from './pages'
-import Onboarding from './pages/onboarding'
-
-import { useAuth0 } from '@auth0/auth0-react'
-import Footer from './components/Footer'
+import React, { useState } from "react";
+import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./pages";
+import { useAuth0 } from "@auth0/auth0-react";
+import Footer from "./components/Footer";
+import FounderForm from "./pages/founderForm";
+import InvestorForm from "./pages/investorForm";
+import Onboarding from "./pages/onboarding";
+import AuthenticationGuard from "./components/Common/AuthenticationGuard";
+import Navbar from "./components/Landing/Navbar";
+import Sidebar from "./components/Landing/Sidebar";
 
 function App() {
-  const { isAuthenticated } = useAuth0()
+  const { isAuthenticated } = useAuth0();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggle = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <Router>
+      <Sidebar isOpen={isOpen} toggle={toggle} />
+      <Navbar toggle={toggle} />
       <Routes>
-        {isAuthenticated ? (
-          <Route path="/" element={<Onboarding />} exact />
-        ) : (
-          <Route path="/" element={<Home />} exact />
-        )}
+        <Route
+          path="/"
+          element={isAuthenticated ? <Onboarding /> : <Home />}
+          exact
+        />
+        <Route
+          path="/investor-matching"
+          element={<AuthenticationGuard component={InvestorForm} />}
+          exact
+        />
+        <Route
+          path="/founder-matching"
+          element={<AuthenticationGuard component={FounderForm} />}
+          exact
+        />
       </Routes>
       <Footer />
     </Router>
-  )
+  );
 }
 
-export default App
+export default App;

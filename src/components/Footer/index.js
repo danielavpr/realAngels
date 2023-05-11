@@ -72,7 +72,7 @@ const Footer = () => {
               >
                 mmoscosa.com
               </MmoscosaLink>{' '}
-              &{' '}
+              &
               <MmoscosaLink
                 href="//github.com/danielavpr"
                 target="_blank"
