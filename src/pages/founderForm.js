@@ -1,19 +1,60 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { Radio, Checkbox, Form, Input, Space, Select } from "antd";
-import {
-  startupStages,
-  industries,
-  usCorp,
-  businessModel,
-  businessModelType,
-  investmentTicket,
-  investmentVehicle,
-  regions,
-} from "../helpers/formHelpers";
 import getUrlOrigin from "../hooks/getUrlOrigin";
 
 const FounderForm = () => {
   getUrlOrigin();
+  const [startupStages, setStartupStages] = useState([]);
+  const [industries, setIndustries] = useState([]);
+  const [usCorps, setUsCorps] = useState([]);
+  const [businessModels, setBusinessModels] = useState([]);
+  const [businessModelTypes, setBusinessModelTypes] = useState([]);
+  const [investmentTickets, setInvestmentTickets] = useState([]);
+  const [investmentVehicles, setInvestmentVehicles] = useState([]);
+  const [regions, setRegions] = useState([]);
+
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_API}/stages`).then((response) => {
+      setStartupStages(response.data);
+    });
+
+    axios.get(`${process.env.REACT_APP_API}/industries`).then((response) => {
+      setIndustries(response.data);
+    });
+
+    axios.get(`${process.env.REACT_APP_API}/us_corps`).then((response) => {
+      setUsCorps(response.data);
+    });
+
+    axios
+      .get(`${process.env.REACT_APP_API}/business_models`)
+      .then((response) => {
+        setBusinessModels(response.data);
+      });
+
+    axios
+      .get(`${process.env.REACT_APP_API}/business_model_types`)
+      .then((response) => {
+        setBusinessModelTypes(response.data);
+      });
+
+    axios
+      .get(`${process.env.REACT_APP_API}/investment_tickets`)
+      .then((response) => {
+        setInvestmentTickets(response.data);
+      });
+
+    axios
+      .get(`${process.env.REACT_APP_API}/investment_vehicles`)
+      .then((response) => {
+        setInvestmentVehicles(response.data);
+      });
+
+    axios.get(`${process.env.REACT_APP_API}/regions`).then((response) => {
+      setRegions(response.data);
+    });
+  }, []);
 
   return (
     <div>
@@ -154,9 +195,9 @@ const FounderForm = () => {
         >
           <Radio.Group>
             <Space direction="vertical">
-              {usCorp.map((corp, index) => (
-                <Radio key={`us-corp-${index}`} value={corp}>
-                  {corp}
+              {usCorps.map((corp) => (
+                <Radio key={`us-corp-${corp.id}`} value={corp.name}>
+                  {corp.name}
                 </Radio>
               ))}
             </Space>
@@ -176,9 +217,9 @@ const FounderForm = () => {
         >
           <Radio.Group>
             <Space>
-              {startupStages.map((stage, index) => (
-                <Radio key={`startup-stage-${index}`} value={stage}>
-                  {stage}
+              {startupStages.map((stage) => (
+                <Radio key={`startup-stage-${stage.id}`} value={stage.name}>
+                  {stage.name}
                 </Radio>
               ))}
             </Space>
@@ -196,9 +237,12 @@ const FounderForm = () => {
           ]}
         >
           <Select>
-            {industries.map((industry, index) => (
-              <Select.Option key={`industry-${index}`} value={industry}>
-                {industry}
+            {industries.map((industry) => (
+              <Select.Option
+                key={`industry-${industry.id}`}
+                value={industry.name}
+              >
+                {industry.name}
               </Select.Option>
             ))}
           </Select>
@@ -215,9 +259,9 @@ const FounderForm = () => {
           ]}
         >
           <Select>
-            {businessModel.map((model, index) => (
-              <Select.Option key={`model-${index}`} value={model}>
-                {model}
+            {businessModels.map((model) => (
+              <Select.Option key={`model-${mode.id}`} value={model.name}>
+                {model.name}
               </Select.Option>
             ))}
           </Select>
@@ -234,9 +278,9 @@ const FounderForm = () => {
           ]}
         >
           <Select>
-            {businessModelType.map((type, index) => (
-              <Select.Option key={`type-${index}`} value={type}>
-                {type}
+            {businessModelTypes.map((type) => (
+              <Select.Option key={`type-${type.id}`} value={type.name}>
+                {type.name}
               </Select.Option>
             ))}
           </Select>
@@ -254,9 +298,9 @@ const FounderForm = () => {
         >
           <Radio.Group>
             <Space direction="vertical">
-              {investmentTicket.map((ticket, index) => (
-                <Radio key={`ticket-${index}`} value={ticket}>
-                  {ticket}
+              {investmentTickets.map((ticket) => (
+                <Radio key={`ticket-${ticket.id}`} value={ticket.name}>
+                  {ticket.name}
                 </Radio>
               ))}
             </Space>
@@ -274,9 +318,9 @@ const FounderForm = () => {
           ]}
         >
           <Radio.Group>
-            {investmentVehicle.map((vehicle, index) => (
-              <Radio key={`vehicle-${index}`} value={vehicle}>
-                {vehicle}
+            {investmentVehicles.map((vehicle) => (
+              <Radio key={`vehicle-${vehicle.id}`} value={vehicle.name}>
+                {vehicle.name}
               </Radio>
             ))}
           </Radio.Group>
@@ -293,9 +337,9 @@ const FounderForm = () => {
           ]}
         >
           <Select mode="multiple" allowClear>
-            {regions.map((region, index) => (
-              <Select.Option key={`region-${index}`} value={region}>
-                {region}
+            {regions.map((region) => (
+              <Select.Option key={`region-${region.id}`} value={region.name}>
+                {region.name}
               </Select.Option>
             ))}
           </Select>
