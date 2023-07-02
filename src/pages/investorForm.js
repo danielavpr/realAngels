@@ -2,11 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import getUrlOrigin from "../hooks/getUrlOrigin";
 import { Radio, Form, Input, Select, Space } from "antd";
-import {
-  businessModel,
-  industries,
-  startupStages,
-} from "../helpers/formHelpers";
 
 const InvestorForm = () => {
   getUrlOrigin();
@@ -15,6 +10,11 @@ const InvestorForm = () => {
   const [operationTimes, setOperationTimes] = useState([]);
   const [investmentVehicles, setInvestmentVehicles] = useState([]);
   const [investmentTickets, setInvestmentTickets] = useState([]);
+  const [businessModels, setBusinessModels] = useState([]);
+  const [startupStages, setStartupStages] = useState([]);
+  const [industries, setIndustries] = useState([]);
+
+  const agnostic = { id: "00", name: "Agnostic" };
 
   useEffect(() => {
     axios
@@ -44,6 +44,20 @@ const InvestorForm = () => {
       .then((response) => {
         setInvestmentTickets(response.data);
       });
+
+    axios
+      .get(`${process.env.REACT_APP_API}/business_models`)
+      .then((response) => {
+        setBusinessModels(response.data);
+      });
+
+    axios.get(`${process.env.REACT_APP_API}/stages`).then((response) => {
+      setStartupStages(response.data);
+    });
+
+    axios.get(`${process.env.REACT_APP_API}/industries`).then((response) => {
+      setIndustries(response.data);
+    });
   }, []);
 
   return (
@@ -140,9 +154,9 @@ const InvestorForm = () => {
           ]}
         >
           <Select mode="multiple" allowClear>
-            {["Agnostic", ...startupStages].map((stage, index) => (
-              <Select.Option key={`stage-${index}`} value={stage}>
-                {stage}
+            {[agnostic, ...startupStages].map((stage) => (
+              <Select.Option key={`stage-${stage.id}`} value={stage.name}>
+                {stage.name}
               </Select.Option>
             ))}
           </Select>
@@ -160,9 +174,12 @@ const InvestorForm = () => {
           ]}
         >
           <Select mode="multiple" allowClear>
-            {["Agnostic", ...industries].map((industry, index) => (
-              <Select.Option key={`industry-${index}`} value={industry}>
-                {industry}
+            {[agnostic, ...industries].map((industry) => (
+              <Select.Option
+                key={`industry-${industry.id}`}
+                value={industry.name}
+              >
+                {industry.name}
               </Select.Option>
             ))}
           </Select>
@@ -180,9 +197,9 @@ const InvestorForm = () => {
           ]}
         >
           <Select mode="multiple" allowClear>
-            {["Agnostic", ...businessModel].map((model, index) => (
-              <Select.Option key={`model-${index}`} value={model}>
-                {model}
+            {[agnostic, ...businessModels].map((model) => (
+              <Select.Option key={`model-${model.id}`} value={model.name}>
+                {model.name}
               </Select.Option>
             ))}
           </Select>
@@ -297,7 +314,7 @@ const InvestorForm = () => {
           <Radio.Group>
             <Space direction="vertical">
               {operationTimes.map((time) => (
-                <Radio key={`time-${time.index}`} value={time.name}>
+                <Radio key={`time-${time.id}`} value={time.name}>
                   {time.name}
                 </Radio>
               ))}

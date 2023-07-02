@@ -260,7 +260,7 @@ const FounderForm = () => {
         >
           <Select>
             {businessModels.map((model) => (
-              <Select.Option key={`model-${mode.id}`} value={model.name}>
+              <Select.Option key={`model-${model.id}`} value={model.name}>
                 {model.name}
               </Select.Option>
             ))}
