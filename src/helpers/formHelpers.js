@@ -5,7 +5,7 @@ export const startupStages = [
   "Late-Seed",
   "Series A",
   "Series B",
-  "Series B",
+  "Series C",
   "Series C+",
 ];
 
@@ -42,7 +42,7 @@ export const industries = [
 ];
 
 export const businessModel = [
-  "Subscripción",
+  "Subscription",
   "Freemium",
   "Licensing",
   "Saas",
@@ -56,37 +56,9 @@ export const businessModel = [
   "Transactional",
 ];
 
-export const businessModelType = ["B2C", "B2B", "B2B2C"];
-
-export const investmentTicket = [
-  "Less than 50K USD",
-  "Between 50K USD - 500K USD",
-  "Between 500K USD - 5M USD",
-  "More than 5M USD",
-];
-
-export const investmentVehicle = ["SAFE", "Equity"];
-
-export const regions = [
-  "South America",
-  "Central America",
-  "North America",
-  "Europe",
-  "Africa",
-  "Asia",
-  "Oceanía",
-];
-
-export const operationTime = [
-  "Less than 6 months",
-  "Between 6 months and one year",
-  "Between 1 and 2 years",
-  "More than 2 years",
-];
-
 export const usCorp = [
   "Yes",
   "No",
   "In Progress",
-  "I need support to create an LLC, C-Corp, etc."
+  "I need support to create an LLC, C-Corp, etc.",
 ];

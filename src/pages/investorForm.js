@@ -1,19 +1,50 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import getUrlOrigin from "../hooks/getUrlOrigin";
 import { Radio, Form, Input, Select, Space } from "antd";
 import {
   businessModel,
-  businessModelType,
   industries,
-  investmentTicket,
-  investmentVehicle,
-  operationTime,
-  regions,
   startupStages,
 } from "../helpers/formHelpers";
 
 const InvestorForm = () => {
   getUrlOrigin();
+  const [businessModelTypes, setBusinessModelTypes] = useState([]);
+  const [regions, setRegions] = useState([]);
+  const [operationTimes, setOperationTimes] = useState([]);
+  const [investmentVehicles, setInvestmentVehicles] = useState([]);
+  const [investmentTickets, setInvestmentTickets] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_API}/business_model_types`)
+      .then((response) => {
+        setBusinessModelTypes(response.data);
+      });
+
+    axios.get(`${process.env.REACT_APP_API}/regions`).then((response) => {
+      setRegions(response.data);
+    });
+
+    axios
+      .get(`${process.env.REACT_APP_API}/operating_times`)
+      .then((response) => {
+        setOperationTimes(response.data);
+      });
+
+    axios
+      .get(`${process.env.REACT_APP_API}/investment_vehicles`)
+      .then((response) => {
+        setInvestmentVehicles(response.data);
+      });
+
+    axios
+      .get(`${process.env.REACT_APP_API}/investment_tickets`)
+      .then((response) => {
+        setInvestmentTickets(response.data);
+      });
+  }, []);
 
   return (
     <div>
@@ -169,9 +200,9 @@ const InvestorForm = () => {
           ]}
         >
           <Select mode="multiple" allowClear>
-            {businessModelType.map((type, index) => (
-              <Select.Option key={`type-${index}`} value={type}>
-                {type}
+            {businessModelTypes.map((type) => (
+              <Select.Option key={`type-${type.id}`} value={type.name}>
+                {type.name}
               </Select.Option>
             ))}
           </Select>
@@ -189,9 +220,9 @@ const InvestorForm = () => {
         >
           <Radio.Group>
             <Space direction="vertical">
-              {investmentTicket.map((ticket, index) => (
-                <Radio key={`ticket-${index}`} value={ticket}>
-                  {ticket}
+              {investmentTickets.map((ticket) => (
+                <Radio key={`ticket-${ticket.id}`} value={ticket.name}>
+                  {ticket.name}
                 </Radio>
               ))}
             </Space>
@@ -209,9 +240,9 @@ const InvestorForm = () => {
           ]}
         >
           <Radio.Group>
-            {investmentVehicle.map((vehicle, index) => (
-              <Radio key={`vehicle-${index}`} value={vehicle}>
-                {vehicle}
+            {investmentVehicles.map((vehicle) => (
+              <Radio key={`vehicle-${vehicle.id}`} value={vehicle.name}>
+                {vehicle.name}
               </Radio>
             ))}
           </Radio.Group>
@@ -228,9 +259,9 @@ const InvestorForm = () => {
           ]}
         >
           <Select mode="multiple" allowClear>
-            {regions.map((region, index) => (
-              <Select.Option key={`region-${index}`} value={region}>
-                {region}
+            {regions.map((region) => (
+              <Select.Option key={`type-${region.id}`} value={region.name}>
+                {region.name}
               </Select.Option>
             ))}
           </Select>
@@ -265,9 +296,9 @@ const InvestorForm = () => {
         >
           <Radio.Group>
             <Space direction="vertical">
-              {operationTime.map((time, index) => (
-                <Radio key={`time-${index}`} value={time}>
-                  {time}
+              {operationTimes.map((time) => (
+                <Radio key={`time-${time.index}`} value={time.name}>
+                  {time.name}
                 </Radio>
               ))}
             </Space>
