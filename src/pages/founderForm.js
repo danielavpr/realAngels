@@ -63,10 +63,10 @@ const FounderForm = () => {
       });
   }, []);
 
-  const handleSubmit = (values) => {
-    console.log("values", values);
-    axios
-      .post(`${process.env.REACT_APP_API}/form_startups`, {
+  const handleSubmit = async (values) => {
+    const newFomStartupResponse = await axios.post(
+      `${process.env.REACT_APP_API}/form_startups`,
+      {
         name: values.name,
         mail: values.email,
         linkedin_profile: values.linkedin,
@@ -93,14 +93,13 @@ const FounderForm = () => {
         business_model_id: values.businessModel,
         business_model_type_id: values.businessModelType,
         investment_vehicle_id: values.investmentVehicle,
-        investment_ticket_id: values.minimumTicket,
-        // region_id: DataTypes.INTEGER, TODO: update logic to handle multiple regions
+        investment_ticket_id: values.raisingAmmount,
+        region_id: values.region,
         operating_time_id: values.operatingTime,
         us_corp_id: values.corporation,
-      })
-      .then(function(response) {
-        console.log(response);
-      });
+        minimum_ticket: values.minimumTicket,
+      }
+    );
   };
 
   return (
@@ -313,7 +312,7 @@ const FounderForm = () => {
 
         <Form.Item
           label="What is the amount you are currently raising?"
-          name="raisingAmount"
+          name="raisingAmmount"
           rules={[
             {
               required: true,
@@ -352,8 +351,8 @@ const FounderForm = () => {
         </Form.Item>
 
         <Form.Item
-          label="In what region(s) do you operate?"
-          name="regions"
+          label="In what region do you operate?"
+          name="region"
           rules={[
             {
               required: true,
@@ -361,7 +360,7 @@ const FounderForm = () => {
             },
           ]}
         >
-          <Select mode="multiple" allowClear>
+          <Select allowClear>
             {regions.map((region) => (
               <Select.Option key={`region-${region.id}`} value={region.id}>
                 {region.name}
