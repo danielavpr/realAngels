@@ -1,19 +1,106 @@
-import React from "react";
-import { Radio, Checkbox, Form, Input, Space, Select } from "antd";
-import {
-  startupStages,
-  industries,
-  usCorp,
-  businessModel,
-  businessModelType,
-  investmentTicket,
-  investmentVehicle,
-  regions,
-} from "../helpers/formHelpers";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Radio, Checkbox, Form, Input, Space, Select, Button } from "antd";
 import getUrlOrigin from "../hooks/getUrlOrigin";
 
 const FounderForm = () => {
   getUrlOrigin();
+  const [startupStages, setStartupStages] = useState([]);
+  const [industries, setIndustries] = useState([]);
+  const [usCorps, setUsCorps] = useState([]);
+  const [businessModels, setBusinessModels] = useState([]);
+  const [businessModelTypes, setBusinessModelTypes] = useState([]);
+  const [investmentTickets, setInvestmentTickets] = useState([]);
+  const [investmentVehicles, setInvestmentVehicles] = useState([]);
+  const [regions, setRegions] = useState([]);
+  const [operatingTimes, setOperatingTimes] = useState([]);
+
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_API}/stages`).then((response) => {
+      setStartupStages(response.data);
+    });
+
+    axios.get(`${process.env.REACT_APP_API}/industries`).then((response) => {
+      setIndustries(response.data);
+    });
+
+    axios.get(`${process.env.REACT_APP_API}/us_corps`).then((response) => {
+      setUsCorps(response.data);
+    });
+
+    axios
+      .get(`${process.env.REACT_APP_API}/business_models`)
+      .then((response) => {
+        setBusinessModels(response.data);
+      });
+
+    axios
+      .get(`${process.env.REACT_APP_API}/business_model_types`)
+      .then((response) => {
+        setBusinessModelTypes(response.data);
+      });
+
+    axios
+      .get(`${process.env.REACT_APP_API}/investment_tickets`)
+      .then((response) => {
+        setInvestmentTickets(response.data);
+      });
+
+    axios
+      .get(`${process.env.REACT_APP_API}/investment_vehicles`)
+      .then((response) => {
+        setInvestmentVehicles(response.data);
+      });
+
+    axios.get(`${process.env.REACT_APP_API}/regions`).then((response) => {
+      setRegions(response.data);
+    });
+
+    axios
+      .get(`${process.env.REACT_APP_API}/operating_times`)
+      .then((response) => {
+        setOperatingTimes(response.data);
+      });
+  }, []);
+
+  const handleSubmit = async (values) => {
+    const newFomStartupResponse = await axios.post(
+      `${process.env.REACT_APP_API}/form_startups`,
+      {
+        name: values.name,
+        mail: values.email,
+        linkedin_profile: values.linkedin,
+        startup_public_name: values.publicName,
+        startup_legal_name: values.legalName,
+        website: values.website,
+        tweet_pitch: values.tweetPitch,
+        hq_location: values.headquarters,
+        founders: values.founders,
+        startup_created_before: values.previousStartup,
+        team_size: values.teamSize,
+        money_raised_before: values.previousRaises,
+        potential_investors_contacted: values.potentialInvestors,
+        post_money_valuation: values.postMoneyValuation,
+        money_compromised: values.moneyCompromised,
+        pitch_deck: values.pitchDeck,
+        have_registered_users: values.registeredUsers,
+        have_sales: values.haveSales,
+        monthly_recurring_revenue: values.monthlyRecurringRevenue,
+        // user_id: DataTypes.INTEGER, TODO: pending logic
+        user_id: 1,
+        industry_id: values.industry,
+        stage_id: values.stage,
+        business_model_id: values.businessModel,
+        business_model_type_id: values.businessModelType,
+        investment_vehicle_id: values.investmentVehicle,
+        investment_ticket_id: values.raisingAmmount,
+        region_id: values.region,
+        operating_time_id: values.operatingTime,
+        us_corp_id: values.corporation,
+        minimum_ticket: values.minimumTicket,
+      }
+    );
+  };
 
   return (
     <div>
@@ -22,8 +109,7 @@ const FounderForm = () => {
         layout="vertical"
         style={{ padding: "5% 10%" }}
         labelWrap
-        // onFinish={onFinish}
-        // onFinishFailed={onFinishFailed}
+        onFinish={handleSubmit}
       >
         <h2>Terms of Service</h2>
         <p>
@@ -36,6 +122,7 @@ const FounderForm = () => {
         </p>
         <Form.Item
           name="termsOfService"
+          valuePropName="checked"
           rules={[
             { required: true, message: "Please accept the terms of service" },
           ]}
@@ -79,7 +166,7 @@ const FounderForm = () => {
               <br />
               3. Click on View profile in the menu.
               <br />
-              4. Copy your URL from your browser’s address bar.
+              4. Copy your URL from your browser's address bar.
             </p>
           }
           name="linkedin"
@@ -142,28 +229,6 @@ const FounderForm = () => {
         </Form.Item>
 
         <Form.Item
-          label="Do you have an LLC or C-Corp in the United States of America?"
-          name="corporation"
-          rules={[
-            {
-              required: true,
-              message:
-                "Please enter the option that better describes your Startup",
-            },
-          ]}
-        >
-          <Radio.Group>
-            <Space direction="vertical">
-              {usCorp.map((corp, index) => (
-                <Radio key={`us-corp-${index}`} value={corp}>
-                  {corp}
-                </Radio>
-              ))}
-            </Space>
-          </Radio.Group>
-        </Form.Item>
-
-        <Form.Item
           label="In what stage is your startup at the moment?"
           name="stage"
           rules={[
@@ -176,9 +241,9 @@ const FounderForm = () => {
         >
           <Radio.Group>
             <Space>
-              {startupStages.map((stage, index) => (
-                <Radio key={`startup-stage-${index}`} value={stage}>
-                  {stage}
+              {startupStages.map((stage) => (
+                <Radio key={`startup-stage-${stage.id}`} value={stage.id}>
+                  {stage.name}
                 </Radio>
               ))}
             </Space>
@@ -191,21 +256,24 @@ const FounderForm = () => {
           rules={[
             {
               required: true,
-              message: "Please enter your Startup's industry",
+              message: "Please enter your startup's industry",
             },
           ]}
         >
           <Select>
-            {industries.map((industry, index) => (
-              <Select.Option key={`industry-${index}`} value={industry}>
-                {industry}
+            {industries.map((industry) => (
+              <Select.Option
+                key={`industry-${industry.id}`}
+                value={industry.id}
+              >
+                {industry.name}
               </Select.Option>
             ))}
           </Select>
         </Form.Item>
 
         <Form.Item
-          label="What is your startup’s business model?"
+          label="What is your startup's business model?"
           name="businessModel"
           rules={[
             {
@@ -215,16 +283,16 @@ const FounderForm = () => {
           ]}
         >
           <Select>
-            {businessModel.map((model, index) => (
-              <Select.Option key={`model-${index}`} value={model}>
-                {model}
+            {businessModels.map((model) => (
+              <Select.Option key={`model-${model.id}`} value={model.id}>
+                {model.name}
               </Select.Option>
             ))}
           </Select>
         </Form.Item>
 
         <Form.Item
-          label="What s your startup’s type of business model?"
+          label="What's your startup's type of business model?"
           name="businessModelType"
           rules={[
             {
@@ -234,9 +302,9 @@ const FounderForm = () => {
           ]}
         >
           <Select>
-            {businessModelType.map((type, index) => (
-              <Select.Option key={`type-${index}`} value={type}>
-                {type}
+            {businessModelTypes.map((type) => (
+              <Select.Option key={`type-${type.id}`} value={type.id}>
+                {type.name}
               </Select.Option>
             ))}
           </Select>
@@ -244,7 +312,7 @@ const FounderForm = () => {
 
         <Form.Item
           label="What is the amount you are currently raising?"
-          name="raisingAmount"
+          name="raisingAmmount"
           rules={[
             {
               required: true,
@@ -254,9 +322,9 @@ const FounderForm = () => {
         >
           <Radio.Group>
             <Space direction="vertical">
-              {investmentTicket.map((ticket, index) => (
-                <Radio key={`ticket-${index}`} value={ticket}>
-                  {ticket}
+              {investmentTickets.map((ticket) => (
+                <Radio key={`ticket-${ticket.id}`} value={ticket.id}>
+                  {ticket.name}
                 </Radio>
               ))}
             </Space>
@@ -274,17 +342,17 @@ const FounderForm = () => {
           ]}
         >
           <Radio.Group>
-            {investmentVehicle.map((vehicle, index) => (
-              <Radio key={`vehicle-${index}`} value={vehicle}>
-                {vehicle}
+            {investmentVehicles.map((vehicle) => (
+              <Radio key={`vehicle-${vehicle.id}`} value={vehicle.id}>
+                {vehicle.name}
               </Radio>
             ))}
           </Radio.Group>
         </Form.Item>
 
         <Form.Item
-          label="In what region(s) do you operate?"
-          name="regions"
+          label="In what region do you operate?"
+          name="region"
           rules={[
             {
               required: true,
@@ -292,13 +360,84 @@ const FounderForm = () => {
             },
           ]}
         >
-          <Select mode="multiple" allowClear>
-            {regions.map((region, index) => (
-              <Select.Option key={`region-${index}`} value={region}>
-                {region}
+          <Select allowClear>
+            {regions.map((region) => (
+              <Select.Option key={`region-${region.id}`} value={region.id}>
+                {region.name}
               </Select.Option>
             ))}
           </Select>
+        </Form.Item>
+
+        <Form.Item
+          label="Do you have registered users?"
+          name="registeredUsers"
+          rules={[
+            {
+              required: true,
+              message: "Please select the option that applies to you",
+            },
+          ]}
+        >
+          <Radio.Group>
+            <Space>
+              <Radio value={true}>Yes</Radio>
+              <Radio value={false}>No</Radio>
+            </Space>
+          </Radio.Group>
+        </Form.Item>
+
+        <Form.Item
+          label="How many months have you been validating?"
+          name="operatingTime"
+          rules={[
+            {
+              required: true,
+              message: "Please select the option that applies to you",
+            },
+          ]}
+        >
+          <Radio.Group>
+            <Space direction="vertical">
+              {operatingTimes.map((times) => (
+                <Radio key={`months-validating-${times.id}`} value={times.id}>
+                  {times.name}
+                </Radio>
+              ))}
+            </Space>
+          </Radio.Group>
+        </Form.Item>
+
+        <Form.Item
+          label="Do you have sales?"
+          name="haveSales"
+          rules={[
+            {
+              required: true,
+              message: "Please select the option that applies to you",
+            },
+          ]}
+        >
+          <Radio.Group>
+            <Space>
+              <Radio value={true}>Yes</Radio>
+              <Radio value={false}>No</Radio>
+            </Space>
+          </Radio.Group>
+        </Form.Item>
+
+        <Form.Item
+          label="What is your MRR (Monthly Recurring Revenue) range?"
+          name="monthlyRecurringRevenue"
+          extra="In USD"
+          rules={[
+            {
+              required: true,
+              message: "Please enter your Monthly Recurring Revenue",
+            },
+          ]}
+        >
+          <Input />
         </Form.Item>
 
         <Form.Item
@@ -342,6 +481,28 @@ const FounderForm = () => {
           ]}
         >
           <Input placeholder="5" />
+        </Form.Item>
+
+        <Form.Item
+          label="Do you have an LLC or C-Corp in the United States of America?"
+          name="corporation"
+          rules={[
+            {
+              required: true,
+              message:
+                "Please enter the option that better describes your Startup",
+            },
+          ]}
+        >
+          <Radio.Group>
+            <Space direction="vertical">
+              {usCorps.map((corp) => (
+                <Radio key={`us-corp-${corp.id}`} value={corp.id}>
+                  {corp.name}
+                </Radio>
+              ))}
+            </Space>
+          </Radio.Group>
         </Form.Item>
 
         <Form.Item
@@ -407,7 +568,8 @@ const FounderForm = () => {
           rules={[
             {
               required: true,
-              message: "Please enter your minimum ticket",
+              message:
+                "Please enter the money compromised for the current round",
             },
           ]}
         >
@@ -442,6 +604,7 @@ const FounderForm = () => {
         <Form.Item
           label="I agree on MIU sharing this information with VCs and Angel Investors?"
           name="shareInformation"
+          valuePropName="checked"
           rules={[
             {
               required: true,
@@ -450,6 +613,11 @@ const FounderForm = () => {
           ]}
         >
           <Checkbox>I agree</Checkbox>
+        </Form.Item>
+        <Form.Item>
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
         </Form.Item>
       </Form>
     </div>
