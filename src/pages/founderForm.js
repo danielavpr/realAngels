@@ -15,6 +15,8 @@ const FounderForm = () => {
   const [regions, setRegions] = useState([]);
   const [operatingTimes, setOperatingTimes] = useState([]);
 
+  const [form] = Form.useForm();
+
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_API}/stages`).then((response) => {
       setStartupStages(response.data);
@@ -86,25 +88,32 @@ const FounderForm = () => {
         have_registered_users: values.registeredUsers,
         have_sales: values.haveSales,
         monthly_recurring_revenue: values.monthlyRecurringRevenue,
-        // user_id: DataTypes.INTEGER, TODO: pending logic
-        user_id: 1,
+        // user_id: 1, // TODO: update with user logic
         industry_id: values.industry,
         stage_id: values.stage,
         business_model_id: values.businessModel,
         business_model_type_id: values.businessModelType,
         investment_vehicle_id: values.investmentVehicle,
         investment_ticket_id: values.raisingAmmount,
-        region_id: values.region,
+        regions: values.regions,
         operating_time_id: values.operatingTime,
         us_corp_id: values.corporation,
         minimum_ticket: values.minimumTicket,
       }
     );
+
+    if (newFomStartupResponse.data.success) {
+      alert("The form was saved correctly!");
+      form.resetFields();
+    } else {
+      alert("Something went wrong, please try again");
+    }
   };
 
   return (
     <div>
       <Form
+        form={form}
         name="investorForm"
         layout="vertical"
         style={{ padding: "5% 10%" }}
@@ -352,7 +361,7 @@ const FounderForm = () => {
 
         <Form.Item
           label="In what region do you operate?"
-          name="region"
+          name="regions"
           rules={[
             {
               required: true,
@@ -360,7 +369,7 @@ const FounderForm = () => {
             },
           ]}
         >
-          <Select allowClear>
+          <Select mode="multiple" allowClear>
             {regions.map((region) => (
               <Select.Option key={`region-${region.id}`} value={region.id}>
                 {region.name}
