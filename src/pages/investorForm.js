@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import getUrlOrigin from "../hooks/getUrlOrigin";
+import useGetUrlOrigin from "../hooks/useGetUrlOrigin";
 import { Radio, Form, Input, Select, Space } from "antd";
 
 const InvestorForm = () => {
-  getUrlOrigin();
+  useGetUrlOrigin();
   const [businessModelTypes, setBusinessModelTypes] = useState([]);
   const [regions, setRegions] = useState([]);
   const [operationTimes, setOperationTimes] = useState([]);

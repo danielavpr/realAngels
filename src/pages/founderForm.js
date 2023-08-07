@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Radio, Checkbox, Form, Input, Space, Select, Button } from "antd";
-import getUrlOrigin from "../hooks/getUrlOrigin";
+import useGetUrlOrigin from "../hooks/useGetUrlOrigin";
 
 const FounderForm = () => {
-  getUrlOrigin();
+  useGetUrlOrigin();
   const [startupStages, setStartupStages] = useState([]);
   const [industries, setIndustries] = useState([]);
   const [usCorps, setUsCorps] = useState([]);
