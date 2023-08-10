@@ -1,53 +1,53 @@
 export const homeObjOne = {
-  id: 'about',
+  id: "about",
   lightBg: false,
   lightText: true,
   lightTextDesc: true,
-  topLine: 'Relationships that matter',
-  headline: 'Innovation should not be stopped by lack of capital',
+  topLine: "Relationships that matter",
+  headline: "Innovation should not be stopped by lack of capital",
   description:
-    'Get access to our exclusive network that enables investors to find the best talent and be funded.',
-  buttonLabel: 'Get access',
+    "Get access to our exclusive network that enables investors to find the best talent and be funded.",
+  buttonLabel: "Get access",
   imgStart: false,
-  img: require('../../../images/svg-1.svg'),
-  alt: 'Car',
+  img: require("../../../images/svg-1.svg").default,
+  alt: "Car",
   dark: true,
   primary: true,
   darkText: false,
-}
+};
 
 export const homeObjTwo = {
-  id: 'discover',
+  id: "discover",
   lightBg: true,
   lightText: false,
   lightTextDesc: false,
-  topLine: 'Discover the next big thing',
-  headline: 'The next unicorn at your fingertips',
+  topLine: "Discover the next big thing",
+  headline: "The next unicorn at your fingertips",
   description:
-    'Get exclusive insight to the new projects and startups in the ecosystem.',
-  buttonLabel: 'Get started',
+    "Get exclusive insight to the new projects and startups in the ecosystem.",
+  buttonLabel: "Get started",
   imgStart: true,
-  img: require('../../../images/svg-2.svg'),
-  alt: 'Car',
+  img: require("../../../images/svg-2.svg").default,
+  alt: "Car",
   dark: false,
   primary: false,
   darkText: true,
-}
+};
 
 export const homeObjThree = {
-  id: 'signup',
+  id: "signup",
   lightBg: true,
   lightText: false,
   lightTextDesc: false,
-  topLine: 'RealAngels',
-  headline: 'Be part of our heaven',
+  topLine: "RealAngels",
+  headline: "Be part of our heaven",
   description:
-    'No matter if you are looking for investment to grow your startup; or if you are an investor looking for the next big thing, realAngels is the place for you.',
-  buttonLabel: 'Get started',
+    "No matter if you are looking for investment to grow your startup; or if you are an investor looking for the next big thing, realAngels is the place for you.",
+  buttonLabel: "Get started",
   imgStart: false,
-  img: require('../../../images/svg-3.svg'),
-  alt: 'Car',
+  img: require("../../../images/svg-3.svg").default,
+  alt: "Car",
   dark: false,
   primary: false,
   darkText: true,
-}
+};
