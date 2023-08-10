@@ -268,6 +268,7 @@ const InvestorForm = () => {
         <Form.Item
           label="In which regions must the startup have an operation to consider it for investment?"
           name="regions"
+          extra="Select 'Agnostic' if you don't have any preference about the region"
           rules={[
             {
               required: true,
