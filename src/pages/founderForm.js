@@ -19,11 +19,11 @@ const FounderForm = () => {
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_API}/stages`).then((response) => {
-      setStartupStages(response.data);
+      setStartupStages(response.data.filter((item) => item.id !== 0));
     });
 
     axios.get(`${process.env.REACT_APP_API}/industries`).then((response) => {
-      setIndustries(response.data);
+      setIndustries(response.data.filter((item) => item.id !== 0));
     });
 
     axios.get(`${process.env.REACT_APP_API}/us_corps`).then((response) => {
@@ -33,7 +33,7 @@ const FounderForm = () => {
     axios
       .get(`${process.env.REACT_APP_API}/business_models`)
       .then((response) => {
-        setBusinessModels(response.data);
+        setBusinessModels(response.data.filter((item) => item.id !== 0));
       });
 
     axios
@@ -55,7 +55,7 @@ const FounderForm = () => {
       });
 
     axios.get(`${process.env.REACT_APP_API}/regions`).then((response) => {
-      setRegions(response.data);
+      setRegions(response.data.filter((item) => item.id !== 0));
     });
 
     axios
@@ -360,7 +360,7 @@ const FounderForm = () => {
         </Form.Item>
 
         <Form.Item
-          label="In what region do you operate?"
+          label="In what region(s) do you operate?"
           name="regions"
           rules={[
             {
