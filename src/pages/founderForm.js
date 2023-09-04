@@ -66,47 +66,51 @@ const FounderForm = () => {
   }, []);
 
   const handleSubmit = async (values) => {
-    const newFomStartupResponse = await axios.post(
-      `${process.env.REACT_APP_API}/form_startups`,
-      {
-        name: values.name,
-        mail: values.email,
-        linkedin_profile: values.linkedin,
-        startup_public_name: values.publicName,
-        startup_legal_name: values.legalName,
-        website: values.website,
-        tweet_pitch: values.tweetPitch,
-        hq_location: values.headquarters,
-        founders: values.founders,
-        startup_created_before: values.previousStartup,
-        team_size: values.teamSize,
-        money_raised_before: values.previousRaises,
-        potential_investors_contacted: values.potentialInvestors,
-        post_money_valuation: values.postMoneyValuation,
-        money_compromised: values.moneyCompromised,
-        pitch_deck: values.pitchDeck,
-        have_registered_users: values.registeredUsers,
-        have_sales: values.haveSales,
-        monthly_recurring_revenue: values.monthlyRecurringRevenue,
-        // user_id: 1, // TODO: update with user logic
-        industry_id: values.industry,
-        stage_id: values.stage,
-        business_model_id: values.businessModel,
-        business_model_type_id: values.businessModelType,
-        investment_vehicle_id: values.investmentVehicle,
-        investment_ticket_id: values.raisingAmmount,
-        regions: values.regions,
-        operating_time_id: values.operatingTime,
-        us_corp_id: values.corporation,
-        minimum_ticket: values.minimumTicket,
+    try {
+      const newFomStartupResponse = await axios.post(
+        `${process.env.REACT_APP_API}/form_startups`,
+        {
+          name: values.name,
+          mail: values.email,
+          linkedin_profile: values.linkedin,
+          startup_public_name: values.publicName,
+          startup_legal_name: values.legalName,
+          website: values.website,
+          tweet_pitch: values.tweetPitch,
+          hq_location: values.headquarters,
+          founders: values.founders,
+          startup_created_before: values.previousStartup,
+          team_size: values.teamSize,
+          money_raised_before: values.previousRaises,
+          potential_investors_contacted: values.potentialInvestors,
+          post_money_valuation: values.postMoneyValuation,
+          money_compromised: values.moneyCompromised,
+          pitch_deck: values.pitchDeck,
+          have_registered_users: values.registeredUsers,
+          have_sales: values.haveSales,
+          monthly_recurring_revenue: values.monthlyRecurringRevenue,
+          // user_id: 1, // TODO: update with user logic
+          industry_id: values.industry,
+          stage_id: values.stage,
+          business_model_id: values.businessModel,
+          business_model_type_id: values.businessModelType,
+          investment_vehicle_id: values.investmentVehicle,
+          investment_ticket_id: values.raisingAmmount,
+          regions: values.regions,
+          operating_time_id: values.operatingTime,
+          us_corp_id: values.corporation,
+          minimum_ticket: values.minimumTicket,
+        }
+      );
+      console.log(newFomStartupResponse);
+      if (newFomStartupResponse.data.success) {
+        alert("The form was saved correctly!");
+        form.resetFields();
       }
-    );
-
-    if (newFomStartupResponse.data.success) {
-      alert("The form was saved correctly!");
-      form.resetFields();
-    } else {
-      alert("Something went wrong, please try again");
+    } catch (e) {
+      alert(
+        "Something went wrong, please review your information and try again"
+      );
     }
   };
 
@@ -438,7 +442,7 @@ const FounderForm = () => {
         <Form.Item
           label="What is your MRR (Monthly Recurring Revenue) range?"
           name="monthlyRecurringRevenue"
-          extra="In USD"
+          extra="In USD - numbers only"
           rules={[
             {
               required: true,
@@ -446,7 +450,7 @@ const FounderForm = () => {
             },
           ]}
         >
-          <Input />
+          <Input type="number" />
         </Form.Item>
 
         <Form.Item
@@ -460,7 +464,7 @@ const FounderForm = () => {
             },
           ]}
         >
-          <Input placeholder="2" />
+          <Input placeholder="2" type="number" />
         </Form.Item>
 
         <Form.Item
@@ -489,7 +493,7 @@ const FounderForm = () => {
             },
           ]}
         >
-          <Input placeholder="5" />
+          <Input placeholder="5" type="number" />
         </Form.Item>
 
         <Form.Item
@@ -544,7 +548,7 @@ const FounderForm = () => {
 
         <Form.Item
           label="What is your post-money valuation?"
-          extra="In USD"
+          extra="In USD - numbers only"
           name="postMoneyValuation"
           rules={[
             {
@@ -553,12 +557,12 @@ const FounderForm = () => {
             },
           ]}
         >
-          <Input />
+          <Input type="number" />
         </Form.Item>
 
         <Form.Item
           label="What is the minimum ticket you accept for investment?"
-          extra="In USD"
+          extra="In USD - numbers only"
           name="minimumTicket"
           rules={[
             {
@@ -567,12 +571,12 @@ const FounderForm = () => {
             },
           ]}
         >
-          <Input />
+          <Input type="number" />
         </Form.Item>
 
         <Form.Item
           label="How much money do you have compromised in your current round?"
-          extra="In USD"
+          extra="In USD - numbers only"
           name="moneyCompromised"
           rules={[
             {
@@ -582,7 +586,7 @@ const FounderForm = () => {
             },
           ]}
         >
-          <Input />
+          <Input type="number" />
         </Form.Item>
 
         <Form.Item
@@ -595,8 +599,7 @@ const FounderForm = () => {
               IF YOU DON'T HAVE A LINK YOU CAN SEND YOUR DECK TO
               marcelo@miu.institute.
               <br />
-              In this case please just type "sent by email" in the text field
-              below.
+              In this case please just type "sent by email" in the text field.
             </p>
           }
           name="pitchDeck"
