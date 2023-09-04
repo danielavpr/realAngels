@@ -21,10 +21,11 @@ export const homeObjTwo = {
   lightBg: true,
   lightText: false,
   lightTextDesc: false,
-  topLine: "Discover the next big thing",
-  headline: "The next unicorn at your fingertips",
+  topLine: "Real Angels is about reserach and discovery",
+  headline:
+    "We connect quality startups with investors based on their profiles",
   description:
-    "Get exclusive insight to the new projects and startups in the ecosystem.",
+    "Get exclusive insight to the new technologies and startups in the ecosystem.",
   buttonLabel: "Get started",
   imgStart: true,
   img: require("../../../images/svg-2.svg").default,

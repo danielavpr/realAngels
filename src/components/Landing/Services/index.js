@@ -1,7 +1,6 @@
-import React from 'react'
-import Icon1 from '../../../images/svg-4.svg'
-import Icon2 from '../../../images/svg-5.svg'
-import Icon3 from '../../../images/svg-6.svg'
+import React from "react";
+import Icon1 from "../../../images/svg-4.svg";
+import Icon2 from "../../../images/svg-5.svg";
 import {
   ServicesContainer,
   ServicesH1,
@@ -11,7 +10,7 @@ import {
   ServicesP,
   ServicesWrapper,
   ServicesHeadingWrapper,
-} from './ServicesElements'
+} from "./ServicesElements";
 
 const Services = () => {
   return (
@@ -19,7 +18,6 @@ const Services = () => {
       <ServicesHeadingWrapper>
         <ServicesH1>Our Services</ServicesH1>
       </ServicesHeadingWrapper>
-
       <ServicesWrapper>
         <ServicesCard>
           <ServicesIcon src={Icon1} />
@@ -31,22 +29,14 @@ const Services = () => {
         </ServicesCard>
         <ServicesCard>
           <ServicesIcon src={Icon2} />
-          <ServicesH2>Save money</ServicesH2>
+          <ServicesH2>Reporting</ServicesH2>
           <ServicesP>
-            We help reduce your fees and increase your overall revenue
-          </ServicesP>
-        </ServicesCard>
-        <ServicesCard>
-          <ServicesIcon src={Icon3} />
-          <ServicesH2>Premium Benefits</ServicesH2>
-          <ServicesP>
-            We help you with sorting everything for you to focus on what is
-            important
+            Get the best reports about the tech and investment ecosystem
           </ServicesP>
         </ServicesCard>
       </ServicesWrapper>
     </ServicesContainer>
-  )
-}
+  );
+};
 
-export default Services
+export default Services;

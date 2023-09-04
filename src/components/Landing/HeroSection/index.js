@@ -26,10 +26,7 @@ const HeroSection = () => {
       </HeroBg>
       <HeroContent>
         <HeroH1>Where investment meets talent</HeroH1>
-        <HeroP>
-          Signup today to find the best startups and match them with the
-          investment they need
-        </HeroP>
+        <HeroP>A hub for new startups and investors to connect</HeroP>
         <HeroBtnWrapper>
           <Button
             to="signup"
