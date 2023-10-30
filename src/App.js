@@ -10,6 +10,7 @@ import Onboarding from "./pages/onboarding";
 import AuthenticationGuard from "./components/Common/AuthenticationGuard";
 import Navbar from "./components/Landing/Navbar";
 import Sidebar from "./components/Landing/Sidebar";
+import Dashboard from "./pages/dashboard";
 
 function App() {
   const { isAuthenticated } = useAuth0();
@@ -37,6 +38,11 @@ function App() {
         <Route
           path="/founder-matching"
           element={<AuthenticationGuard component={FounderForm} />}
+          exact
+        />
+        <Route
+          path="/dashboard"
+          element={<AuthenticationGuard component={Dashboard} />}
           exact
         />
       </Routes>
