@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import axios from "axios";
 import { Table } from "antd";
 import { formatMoney } from "../helpers";
+import { ExpandedTableItem } from "../components/Dashboard/DashboardElements";
 
 const Dashboard = () => {
   const [data, setData] = React.useState([]);
@@ -32,7 +33,7 @@ const Dashboard = () => {
         rowKey={(record) => record.id}
         expandable={{
           expandedRowRender: (record) => (
-            <div>
+            <ExpandedTableItem>
               <p>
                 <b>Startup Public Name:</b> {record.startup_public_name}
               </p>
@@ -129,7 +130,7 @@ const Dashboard = () => {
                 <b>Investment Ticket:</b> {record.investment_ticket}
               </p>
               <p>
-                <b>Region:</b> {record.region}
+                <b>Regions:</b> {record.regions.toString()}
               </p>
               <p>
                 <b>Operating Time:</b> {record.operating_time}
@@ -143,7 +144,7 @@ const Dashboard = () => {
               <p>
                 <b>Minimum Ticket:</b> {formatMoney(record.minimum_ticket)} USD
               </p>
-            </div>
+            </ExpandedTableItem>
           ),
         }}
       />
